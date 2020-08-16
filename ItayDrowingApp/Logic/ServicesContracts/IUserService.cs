@@ -1,4 +1,4 @@
-﻿using ItayDrowingApp.Boundary;
+﻿using EntityAndBoundary.Boundary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ namespace ItayDrowingApp.Logic.ServicesContracts
 {
     public interface IUserService
     {
-        public UserBoundary CreateUser(UserBoundary user);
-        public UserBoundary Login(string userEmail, string userName);
-        public UserBoundary Unsubscribe(UserBoundary user);
+        public UserBoundary CreateUser(NewUserBoundaey user);
+        public UserBoundary Login(string userEmail);
+        public UserBoundary Unsubscribe(string userEmail);
 
     }
 }

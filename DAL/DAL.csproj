@@ -8,4 +8,9 @@
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.80" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\EntitiesAndBoundries.csproj" />
+    <ProjectReference Include="..\EntityAndBoundary\EntityAndBoundary.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DAL
+namespace Entities
 {
     public class Class1
     {
