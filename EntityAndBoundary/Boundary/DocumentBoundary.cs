@@ -7,5 +7,14 @@ namespace EntityAndBoundary.Boundary
 {
     public class DocumentBoundary
     {
+        public string OwnerID { get; set; }
+
+        public string URL { get; set; }
+
+        public string DocumentName { get; set; }
+
+        public string docID { get; set; }
+
+        public List<MarkerBoundary> Markers { get; set; }
     }
 }

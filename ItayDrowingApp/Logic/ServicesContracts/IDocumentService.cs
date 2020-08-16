@@ -8,7 +8,7 @@ namespace ItayDrowingApp.Logic.ServicesContracts
 {
     public interface IDocumentService
     {
-        public DocumentBoundary CreateDocument(DocumentBoundary document);
+        public DocumentBoundary CreateDocument(DocumentBoundary document,string userEmail);
 
         public DocumentBoundary UploadDocument(DocumentBoundary document);
 

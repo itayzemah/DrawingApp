@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.Converters
+namespace DAL.DALImlementations
 {
     public class UserConverter
     {

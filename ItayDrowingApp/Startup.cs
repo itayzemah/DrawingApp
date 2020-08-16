@@ -1,14 +1,16 @@
-using DAL.Converters;
+using DAL;
+using DAL.DALImlementations;
 using ItayDrowingApp.Logic.Services;
 using ItayDrowingApp.Logic.ServicesContracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using Oracle.ManagedDataAccess.Client;
 namespace ItayDrowingApp
 {
     public class Startup
@@ -25,7 +27,11 @@ namespace ItayDrowingApp
         {
             services.AddControllersWithViews();
             services.AddSingleton<IUserService, UserServiceImple>();
-            services.AddScoped(typeof(UserConverter));
+            services.AddScoped<IUserDAL,UserDAL>();
+            services.AddScoped<IDocumentDAL, DocumentDAL>();
+            services.AddScoped<IMarkerDAL, MarkerDAL>();
+            services.AddScoped<ISharingDAL, SharingDAL>();
+
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -48,6 +54,12 @@ namespace ItayDrowingApp
                 app.UseHsts();
             }
 
+            //app.Run(async (context) =>
+            //{
+            //    //await context.Response.WriteAsync("hello world");
+
+            //    string conString = "User Id=Itay;Password=1234;Data Source=localhost:1521/xe";
+            //});
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())

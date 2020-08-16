@@ -1,4 +1,6 @@
-﻿using EntityAndBoundary.Boundary;
+﻿using DAL;
+using DAL.Converters;
+using EntityAndBoundary.Boundary;
 using ItayDrowingApp.Logic.ServicesContracts;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,17 @@ namespace ItayDrowingApp.Logic.Services
 {
     public class DocumentServiceImple : IDocumentService
     {
-        public DocumentBoundary CreateDocument(DocumentBoundary document)
+        private IDocumentDAL _documentDAL;
+        private DocumentConverter _documentConverter;
+
+
+        public DocumentServiceImple(IDocumentDAL documentDAL, DocumentConverter documentConverter)
+        {
+            this._documentDAL = documentDAL;
+            this._documentConverter = documentConverter;
+        }
+
+        public DocumentBoundary CreateDocument(DocumentBoundary document, string userEmail)
         {
             throw new NotImplementedException();
         }
