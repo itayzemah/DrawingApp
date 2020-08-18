@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Entities\EntitiesAndBoundries.csproj" />
     <ProjectReference Include="..\EntityAndBoundary\EntityAndBoundary.csproj" />
   </ItemGroup>
 

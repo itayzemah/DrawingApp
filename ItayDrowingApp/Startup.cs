@@ -1,4 +1,5 @@
 using DAL;
+using DAL.Converters;
 using DAL.DALImlementations;
 using ItayDrowingApp.Logic.Services;
 using ItayDrowingApp.Logic.ServicesContracts;
@@ -26,11 +27,22 @@ namespace ItayDrowingApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IDataAccessLayer, DataAccessLayer>();
+
+
+            services.AddSingleton<IUserDAL, UserDAL>();
+            services.AddTransient<UserConverter>();
             services.AddSingleton<IUserService, UserServiceImple>();
-            services.AddScoped<IUserDAL,UserDAL>();
-            services.AddScoped<IDocumentDAL, DocumentDAL>();
-            services.AddScoped<IMarkerDAL, MarkerDAL>();
-            services.AddScoped<ISharingDAL, SharingDAL>();
+
+            services.AddSingleton<IDocumentDAL, DocumentDAL>();
+            services.AddTransient<DocumentConverter>();
+            services.AddSingleton<IDocumentService, DocumentServiceImple>();
+
+            services.AddSingleton<IMarkerDAL, MarkerDAL>();
+            services.AddSingleton<IMarkerService, MarkerServiceImple>();
+
+            services.AddSingleton<ISharingDAL, SharingDAL>();
+            services.AddSingleton<ISharingService, SharingServiceImple>();
 
 
             // In production, the Angular files will be served from this directory

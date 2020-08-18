@@ -9,7 +9,6 @@ namespace DAL.DALImlementations
 {
     public class UserDAL : IUserDAL
     {
-        public DbSet<UserEntity> users { get; set; }
 
         public UserBoundary Create(NewUserBoundaey newUser)
         {
