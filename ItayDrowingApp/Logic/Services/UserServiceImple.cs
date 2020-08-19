@@ -21,6 +21,7 @@ namespace ItayDrowingApp.Logic.Services
             _users = new Dictionary<string, UserEntity>();
             this.userConverter = userConverter;
             this.userDAL = userDAL;
+
         }
 
         public UserBoundary CreateUser(NewUserBoundaey user)
@@ -32,6 +33,7 @@ namespace ItayDrowingApp.Logic.Services
             else
             {
                 string id = Guid.NewGuid().ToString();
+                UserEntity retval = userDAL.Create(userConverter.BoundaryToEntity(id,user));
                 _users.Add(user.Email, userConverter.BoundaryToEntity(new UserBoundary() { ID = id, UserEmail = user.Email, UserName = user.UserName }));
             }
             return userConverter.EntityToBoundary( _users[user.Email]);

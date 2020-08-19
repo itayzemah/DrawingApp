@@ -33,7 +33,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\Entities\EntitiesAndBoundries.csproj" />
     <ProjectReference Include="..\EntityAndBoundary\EntityAndBoundary.csproj" />
   </ItemGroup>
 

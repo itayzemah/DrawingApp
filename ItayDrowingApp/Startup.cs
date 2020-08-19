@@ -27,7 +27,8 @@ namespace ItayDrowingApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IDataAccessLayer, DataAccessLayer>();
+            string connectionStringForOracleDB = Configuration.GetConnectionString("OracleDB");
+            services.AddSingleton<IDataAccessLayer>(x => new OracleDataAccessLayer(connectionStringForOracleDB));
 
 
             services.AddSingleton<IUserDAL, UserDAL>();
@@ -39,6 +40,7 @@ namespace ItayDrowingApp
             services.AddSingleton<IDocumentService, DocumentServiceImple>();
 
             services.AddSingleton<IMarkerDAL, MarkerDAL>();
+            //services.AddTransient<MarkerConverter>();
             services.AddSingleton<IMarkerService, MarkerServiceImple>();
 
             services.AddSingleton<ISharingDAL, SharingDAL>();
@@ -67,11 +69,10 @@ namespace ItayDrowingApp
             }
 
             //app.Run(async (context) =>
-            //{
-            //    //await context.Response.WriteAsync("hello world");
-
-            //    string conString = "User Id=Itay;Password=1234;Data Source=localhost:1521/xe";
-            //});
+            
+                //await context.Response.WriteAsync(Configuration.GetConnectionString("OracleDB"))
+                //    string conString = "User Id=Itay;Password=1234;Data Source=localhost:1521/xe";
+            //);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())

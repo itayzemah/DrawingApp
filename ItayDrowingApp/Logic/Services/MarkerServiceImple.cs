@@ -15,12 +15,12 @@ namespace ItayDrowingApp.Logic.Services
             throw new NotImplementedException();
         }
 
-        public List<MarkerBoundary> getAll()
+        public List<MarkerBoundary> getAll(string userEmail, string docID)
         {
             throw new NotImplementedException();
         }
 
-        public MarkerBoundary RemoveMarker(MarkerBoundary marker)
+        public MarkerBoundary RemoveMarker(string docID)
         {
             throw new NotImplementedException();
         }

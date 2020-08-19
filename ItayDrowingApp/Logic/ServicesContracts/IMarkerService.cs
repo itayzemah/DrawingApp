@@ -9,8 +9,8 @@ namespace ItayDrowingApp.Logic.ServicesContracts
     public interface IMarkerService
     {
         public MarkerBoundary CreateMarker(MarkerBoundary marker);
-        public MarkerBoundary RemoveMarker(MarkerBoundary marker);
-        public List<MarkerBoundary> getAll();
+        public MarkerBoundary RemoveMarker(string docID);
+        public List<MarkerBoundary> getAll(string userEmail,string docID );
 
 
     }

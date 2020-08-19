@@ -17,5 +17,10 @@ namespace DAL.DALImlementations
         {
             return new UserBoundary(userEntity.UserID, userEntity.userEmail, userEntity.UserName);
         }
+
+        public UserEntity BoundaryToEntity(string id,NewUserBoundaey user)
+        {
+            return new UserEntity(id, user.Email, user.UserName);
+        }
     }
 }

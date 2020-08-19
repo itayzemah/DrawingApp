@@ -1,14 +1,14 @@
-﻿using EntityAndBoundary.Boundary;
+﻿using EntityAndBoundary.Entity;
 using System;
 
 namespace DAL
 {
     public interface IUserDAL
     {
-        public UserBoundary Create(NewUserBoundaey newUser);
+        public UserEntity Create(UserEntity newUser);
 
-        public UserBoundary RemoveUser(UserBoundary userToRemove);
+        public UserEntity RemoveUser(UserEntity userToRemove);
 
-        public UserBoundary Login(string userEmail);
+        public UserEntity Login(string userEmail);
     }
 }

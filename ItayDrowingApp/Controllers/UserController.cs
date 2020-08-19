@@ -20,37 +20,29 @@ namespace ItayDrowingApp.Controllers
         {
             _userService = userService;
         }
-        // GET: api/<UserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/<UserController>/5
+        // GET api/<UserController>/create
         [HttpPost("create")]
         public UserBoundary CreateUser([FromBody] NewUserBoundaey userRegister)
         {
             return _userService.CreateUser(userRegister);
         }
 
-        // POST api/<UserController>
-        [HttpPost]
+        // GET: api/<UserController>
+        [HttpGet("{userEmail}")]
         public UserBoundary Login([FromRoute] string userEmail)
         {
             return _userService.Login(userEmail);
         }
 
-        // PUT api/<UserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+
+        // GET api/<UserController>/unsubsribe
+        [HttpPost("unsubsribe")]
+        public UserBoundary RemoveUser([FromRoute] string userEmail)
         {
+            return _userService.Unsubscribe(userEmail);
         }
 
-        // DELETE api/<UserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
     }
 }

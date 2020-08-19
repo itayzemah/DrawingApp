@@ -9,6 +9,8 @@ namespace DAL
 {
     public interface IDataAccessLayer
     {
+        public string ConnectionString { get; set; }
+
         public IDbConnection Connect(string strConnection);
 
         DataSet ExecuteSPQuery(IDbConnection connection, string spName,

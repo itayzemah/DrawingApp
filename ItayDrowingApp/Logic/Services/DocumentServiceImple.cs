@@ -26,7 +26,7 @@ namespace ItayDrowingApp.Logic.Services
             throw new NotImplementedException();
         }
 
-        public List<DocumentBoundary> getAll()
+        public List<DocumentBoundary> getAll(string userEmail)
         {
             throw new NotImplementedException();
         }
@@ -36,7 +36,7 @@ namespace ItayDrowingApp.Logic.Services
             throw new NotImplementedException();
         }
 
-        public DocumentBoundary UploadDocument(DocumentBoundary document)
+        public DocumentBoundary UploadDocument(DocumentBoundary document, string userEmail)
         {
             throw new NotImplementedException();
         }

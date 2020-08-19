@@ -10,11 +10,11 @@ namespace ItayDrowingApp.Logic.ServicesContracts
     {
         public DocumentBoundary CreateDocument(DocumentBoundary document,string userEmail);
 
-        public DocumentBoundary UploadDocument(DocumentBoundary document);
+        public DocumentBoundary UploadDocument(DocumentBoundary document, string userEmail);
 
         public DocumentBoundary RemoveDocument(DocumentBoundary document);
 
-        public List<DocumentBoundary> getAll();
+        public List<DocumentBoundary> getAll(string userEmail);
 
 
 
