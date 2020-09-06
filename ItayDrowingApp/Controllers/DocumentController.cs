@@ -22,7 +22,7 @@ namespace ItayDrowingApp.Controllers
         }
 
 
-        // GET: api/<DocumentController>/{userEmail}
+        // GET: api/document/{userEmail}
         [HttpGet("{userEmail}")]
         public IEnumerable<DocumentBoundary> GetAllDocuments([FromRoute] string userEmail)
         {
@@ -31,14 +31,14 @@ namespace ItayDrowingApp.Controllers
 
 
 
-        // POST api/<DocumentController>/{userEmail}
+        // POST api/document/{userEmail}
         [HttpPost("{userEmail}")]
         public DocumentBoundary CreateDocument([FromRoute] string userEmail,[FromBody] DocumentBoundary documentBoundary)
         {
             return documentService.CreateDocument(documentBoundary, userEmail);
         }
 
-        // POST api/<DocumentController>/{userEmail}/upload
+        // POST api/document/{userEmail}/upload
         [HttpPost]
         [Route("api/document/{userEmail}/upload")]
         public DocumentBoundary UploadDocument([FromRoute] string userEmail, [FromBody] DocumentBoundary documentBoundary)

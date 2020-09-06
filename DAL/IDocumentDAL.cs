@@ -1,4 +1,5 @@
 ﻿using EntityAndBoundary.Boundary;
+using EntityAndBoundary.Entitiy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,11 +8,11 @@ namespace DAL
 {
     public interface IDocumentDAL
     {
-        public DocumentBoundary Create(DocumentBoundary newDocument);
+        public DocumentEntity Create(DocumentEntity newDocument);
 
-        public DocumentBoundary Remove(DocumentBoundary documentToRemove);
+        public DocumentEntity Remove(DocumentEntity documentToRemove);
 
-        public DocumentBoundary Get(string docID);
-
+        public List<DocumentEntity> GetAllDocsOf(string userID);
+        public DocumentEntity Upload(DocumentEntity entityToUpload);
     }
 }

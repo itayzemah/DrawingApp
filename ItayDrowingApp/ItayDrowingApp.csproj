@@ -20,6 +20,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.7" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.19.80" />
   </ItemGroup>
@@ -34,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\EntityAndBoundary\EntityAndBoundary.csproj" />
+    <ProjectReference Include="..\WebSockets\WebSockets.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

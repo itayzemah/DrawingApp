@@ -7,6 +7,13 @@ namespace DAL.DALImlementations
 {
     public class MarkerDAL : IMarkerDAL
     {
+        private IDataAccessLayer dal;
+
+        public MarkerDAL(IDataAccessLayer dal)
+        {
+            this.dal = dal;
+        }
+
         public MarkerBoundary Create(MarkerBoundary marker)
         {
             throw new NotImplementedException();

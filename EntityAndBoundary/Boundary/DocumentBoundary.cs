@@ -15,6 +15,8 @@ namespace EntityAndBoundary.Boundary
 
         public string docID { get; set; }
 
-        public List<MarkerBoundary> Markers { get; set; }
+        public MarkerBoundary[] Markers { get; set; }
+
+        public Boolean IsActive { get; set; }
     }
 }

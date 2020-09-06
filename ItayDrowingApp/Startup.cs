@@ -12,6 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Oracle.ManagedDataAccess.Client;
+using System;
+using WebSockets;
+
 namespace ItayDrowingApp
 {
     public class Startup
@@ -26,6 +29,8 @@ namespace ItayDrowingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddWebSocketManager();
+
             services.AddControllersWithViews();
             string connectionStringForOracleDB = Configuration.GetConnectionString("OracleDB");
             services.AddSingleton<IDataAccessLayer>(x => new OracleDataAccessLayer(connectionStringForOracleDB));
@@ -55,7 +60,7 @@ namespace ItayDrowingApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -67,12 +72,15 @@ namespace ItayDrowingApp
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            var wsOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(60),
+                ReceiveBufferSize = 4 * 1024
+            };
 
-            //app.Run(async (context) =>
-            
-                //await context.Response.WriteAsync(Configuration.GetConnectionString("OracleDB"))
-                //    string conString = "User Id=Itay;Password=1234;Data Source=localhost:1521/xe";
-            //);
+            //app.UseWebSockets(wsOptions);
+            //app.MapWebSocketManager("/marks", serviceProvider.GetService<DrawAppHandler>());
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())

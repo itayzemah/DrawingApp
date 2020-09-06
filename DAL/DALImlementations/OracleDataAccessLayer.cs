@@ -4,12 +4,23 @@ using System.Data;
 using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.DALContracts;
 using Microsoft.Extensions.Configuration;
 using Oracle.ManagedDataAccess.Client;
 
 namespace DAL.DALImlementations
 {
+    public class OracleConnectionAdapter: MyDBConnection
+    {
+        public OracleConnection Connection { get; set; }
+        public string ConnectionString { get; set; }
 
+        public OracleConnectionAdapter(string connectionString)
+        {
+            ConnectionString = connectionString;
+
+        }
+    }
     public class OracleDataAccessLayer : IDataAccessLayer
     {
         public string ConnectionString { get; set; }
@@ -59,6 +70,8 @@ namespace DAL.DALImlementations
             DataSet retval = new DataSet();
             OracleDataAdapter dataAdapter = new OracleDataAdapter(command);
             dataAdapter.Fill(retval);
+           
+
             return retval;
         }
     }

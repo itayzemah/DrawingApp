@@ -41,7 +41,9 @@ namespace ItayDrowingApp.Logic.Services
 
         public UserBoundary Login(string userEmail)
         {
-            return new UserBoundary() { UserEmail = userEmail };
+            UserEntity retval = userDAL.Login(userEmail);
+
+            return userConverter.EntityToBoundary(retval);
         }
 
         public UserBoundary Unsubscribe(string userEmail)

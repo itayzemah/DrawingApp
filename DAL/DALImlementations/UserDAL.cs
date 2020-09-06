@@ -2,6 +2,7 @@
 using EntityAndBoundary.Entity;
 using Microsoft.EntityFrameworkCore;
 using Oracle.ManagedDataAccess.Client;
+using Oracle.ManagedDataAccess.Types;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -20,30 +21,26 @@ namespace DAL.DALImlementations
 
         public UserEntity Create(UserEntity newUser)
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append("insert INTO users (userid, userEmail,userName)VALUES('");
-            sb.Append(newUser.UserID);
-            sb.Append("','");
-            sb.Append(newUser.userEmail);
-            sb.Append("','");
-            sb.Append(newUser.UserName);
-            sb.Append("')");
-            //var dbRV= dal.ExecuteQuery(dal.Connect(dal.ConnectionString), sb.ToString());
-            //DbParameter id = new OracleParameter() { ParameterName = "userid", Value = newUser.UserID };
-            //DbParameter userName = new OracleParameter() { ParameterName = "userName", Value = newUser.UserName };
-            //DbParameter userEmail = new OracleParameter() { ParameterName = "userEmail", Value = newUser.userEmail };
-
             DbParameter[] dbParameters = {
                 new OracleParameter() { ParameterName = "userid", Value = newUser.UserID }
+                , new OracleParameter() { ParameterName = "userEmail", Value = newUser.userEmail }
                 , new OracleParameter() { ParameterName = "userName",Value = newUser.UserName }
-                , new OracleParameter() { ParameterName = "userEmail", Value = newUser.userEmail } };
+                 };
             dal.ExecuteSPQuery(dal.Connect(dal.ConnectionString), "ADD_USER", dbParameters);
             return newUser;
         }
 
         public UserEntity Login(string userEmail)
         {
-            throw new NotImplementedException();
+            DbParameter[] dbParameters = {
+                new OracleParameter() { ParameterName = "userEmail", Value = userEmail },
+                new OracleParameter() { ParameterName = "USER_RV", OracleDbType = OracleDbType.RefCursor, Direction=System.Data.ParameterDirection.Output } };
+            var rv = dal.ExecuteSPQuery(dal.Connect(dal.ConnectionString), "LOGIN", dbParameters);
+            var userDataSet = rv.Tables[0].Rows[0];
+            var id1 = userDataSet["USERID"];
+            var name1 = userDataSet["USERNAME"];
+            var email1 = userDataSet["USEREMAIL"];
+            return new UserEntity(id1 as string, email1 as string, name1 as string);
         }
 
         public UserEntity RemoveUser(UserEntity userToRemove)

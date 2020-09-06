@@ -1,11 +1,11 @@
 ﻿using DAL;
 using DAL.Converters;
 using EntityAndBoundary.Boundary;
+using EntityAndBoundary.Entitiy;
 using ItayDrowingApp.Logic.ServicesContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ItayDrowingApp.Logic.Services
 {
@@ -23,22 +23,38 @@ namespace ItayDrowingApp.Logic.Services
 
         public DocumentBoundary CreateDocument(DocumentBoundary document, string userEmail)
         {
-            throw new NotImplementedException();
+            document.docID = Guid.NewGuid().ToString();
+            //document.OwnerID = userEmail;//TODO change to ID
+            _documentDAL.Create(_documentConverter.BoundaryToEntity(document));
+            return document;
         }
 
         public List<DocumentBoundary> getAll(string userEmail)
         {
-            throw new NotImplementedException();
+            List<DocumentBoundary> rv = new List<DocumentBoundary>();
+            var allDocs = _documentDAL.GetAllDocsOf(userEmail);
+            foreach (var boundary in allDocs)
+            {
+                rv.Add(_documentConverter.EntityToBoundary(boundary));
+            }
+            return rv;
         }
 
         public DocumentBoundary RemoveDocument(DocumentBoundary document)
         {
-            throw new NotImplementedException();
+            var entityToRemove = _documentConverter.BoundaryToEntity(document);
+            var removedEntity= _documentDAL.Remove(entityToRemove);
+            var rv = _documentConverter.EntityToBoundary(removedEntity);
+            return rv;
         }
 
         public DocumentBoundary UploadDocument(DocumentBoundary document, string userEmail)
         {
-            throw new NotImplementedException();
+
+            var entityToUpload = _documentConverter.BoundaryToEntity(document);
+            var uploadedEntity = _documentDAL.Upload(entityToUpload);
+            var rv = _documentConverter.EntityToBoundary(uploadedEntity);
+            return rv;
         }
     }
 }

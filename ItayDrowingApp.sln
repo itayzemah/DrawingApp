@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{9
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItayDrowingAppTest", "ItayDrowingAppTest\ItayDrowingAppTest.csproj", "{2BACD93B-DD9B-4BD9-A6C1-97B4528C5014}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityAndBoundary", "EntityAndBoundary\EntityAndBoundary.csproj", "{D2878601-A92E-42A2-81CE-BDAF67225568}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityAndBoundary", "EntityAndBoundary\EntityAndBoundary.csproj", "{D2878601-A92E-42A2-81CE-BDAF67225568}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSockets", "WebSockets\WebSockets.csproj", "{6C8F8AE6-9580-4028-81B5-1251FB35F5DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{D2878601-A92E-42A2-81CE-BDAF67225568}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2878601-A92E-42A2-81CE-BDAF67225568}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2878601-A92E-42A2-81CE-BDAF67225568}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C8F8AE6-9580-4028-81B5-1251FB35F5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8F8AE6-9580-4028-81B5-1251FB35F5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8F8AE6-9580-4028-81B5-1251FB35F5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8F8AE6-9580-4028-81B5-1251FB35F5DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
