@@ -1,6 +1,5 @@
 ﻿using EntityAndBoundary.Boundary;
-
-using ItayDrowingApp.Logic.ServicesContracts;
+using ItayDrowingApp.AppContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

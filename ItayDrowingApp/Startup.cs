@@ -1,8 +1,8 @@
 using DAL;
 using DAL.Converters;
 using DAL.DALImlementations;
+using ItayDrowingApp.AppContracts;
 using ItayDrowingApp.Logic.Services;
-using ItayDrowingApp.Logic.ServicesContracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -11,9 +11,12 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ServiceDocument;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using WebSockets;
+using System.IO;
+using Factory;
 
 namespace ItayDrowingApp
 {
@@ -29,6 +32,11 @@ namespace ItayDrowingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dlls");
+            var resolver = new Resolver(path, services);
+            services.AddSingleton<IResolver>(sp => resolver);
+
+
             services.AddWebSocketManager();
 
             services.AddControllersWithViews();
@@ -38,18 +46,18 @@ namespace ItayDrowingApp
 
             services.AddSingleton<IUserDAL, UserDAL>();
             services.AddTransient<UserConverter>();
-            services.AddSingleton<IUserService, UserServiceImple>();
+            //services.AddSingleton<IUserService, UserServiceImple>();
 
             services.AddSingleton<IDocumentDAL, DocumentDAL>();
             services.AddTransient<DocumentConverter>();
-            services.AddSingleton<IDocumentService, DocumentServiceImple>();
+            //services.AddSingleton<IDocumentService, DocumentServiceImple>();
 
             services.AddSingleton<IMarkerDAL, MarkerDAL>();
             //services.AddTransient<MarkerConverter>();
-            services.AddSingleton<IMarkerService, MarkerServiceImple>();
+            //services.AddSingleton<IMarkerService, MarkerServiceImple>();
 
             services.AddSingleton<ISharingDAL, SharingDAL>();
-            services.AddSingleton<ISharingService, SharingServiceImple>();
+            //services.AddSingleton<ISharingService, SharingServiceImple>();
 
 
             // In production, the Angular files will be served from this directory

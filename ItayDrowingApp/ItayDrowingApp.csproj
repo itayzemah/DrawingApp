@@ -33,9 +33,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppContracts\AppContracts.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\EntityAndBoundary\EntityAndBoundary.csproj" />
+    <ProjectReference Include="..\Factory\Factory.csproj" />
+    <ProjectReference Include="..\ServiceDocument\ServiceDocument.csproj" />
+    <ProjectReference Include="..\ServiceMarker\ServiceMarker.csproj" />
+    <ProjectReference Include="..\ServiceShare\ServiceShare.csproj" />
+    <ProjectReference Include="..\ServiceUser\ServiceUser.csproj" />
     <ProjectReference Include="..\WebSockets\WebSockets.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logic\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

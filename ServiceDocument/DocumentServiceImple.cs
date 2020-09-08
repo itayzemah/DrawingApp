@@ -2,7 +2,7 @@
 using DAL.Converters;
 using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Entitiy;
-using ItayDrowingApp.Logic.ServicesContracts;
+using ItayDrowingApp.AppContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

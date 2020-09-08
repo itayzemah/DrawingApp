@@ -2,7 +2,7 @@
 using DAL.DALImlementations;
 using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Entity;
-using ItayDrowingApp.Logic.ServicesContracts;
+using ItayDrowingApp.AppContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +15,10 @@ namespace ItayDrowingApp.Logic.Services
         private Dictionary<string, UserEntity> _users;
         private UserConverter userConverter;
         private IUserDAL userDAL;
+
+        public UserServiceImple()
+        {
+        }
 
         public UserServiceImple(UserConverter userConverter, IUserDAL userDAL)
         {
