@@ -5,7 +5,6 @@ using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Entitiy;
 using EntityAndBoundary.Entity;
 using ItayDrowingApp.Logic.Services;
-using ItayDrowingApp.Logic.ServicesContracts;
 using NUnit.Framework;
 using System.Net.Http;
 

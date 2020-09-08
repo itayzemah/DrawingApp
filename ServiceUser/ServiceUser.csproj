@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,5 +8,9 @@
     <ProjectReference Include="..\AppContracts\AppContracts.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetPath)&quot; &quot;$(SolutionDir)ItayDrowingApp\dlls\$(TargetFileName)&quot;" />
+  </Target>
 
 </Project>

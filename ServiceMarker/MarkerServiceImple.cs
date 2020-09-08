@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ItayDrowingApp.Logic.Services
 {
+    [Register(Policy.Scoped, typeof(IMarkerService))]
     public class MarkerServiceImple : IMarkerService
     {
         public MarkerBoundary CreateMarker(MarkerBoundary marker)

@@ -12,6 +12,26 @@ namespace Factory
         IServiceCollection _serviceCollection;
         IServiceProvider _serviceProvider;
         Dictionary<Policy, Func<Type, Type, IServiceCollection>> _policyFunc;
+        public Resolver(string path, IServiceCollection serviceCollection)
+        {
+            _policyFunc = InitPolicy();
+
+            _serviceCollection = serviceCollection;
+            LoadLibraries(path);
+        }
+        public Resolver(string path)
+        {
+
+            _policyFunc = InitPolicy();
+
+            _serviceCollection = new ServiceCollection();
+            _serviceCollection = InitServiceCollection(path);
+
+            _serviceProvider = _serviceCollection.BuildServiceProvider();
+            //Load Libraries and Interfaces
+            //Here we are going to add some 
+
+        }
 
         private Dictionary<Policy, Func<Type, Type, IServiceCollection>> InitPolicy()
         {
@@ -22,7 +42,7 @@ namespace Factory
 
             return retval;
         }
-        private IServiceCollection InitServiceCollection(string dllpath, IServiceCollection serviceCollection)
+        private IServiceCollection InitServiceCollection(string dllpath)
         {
             IServiceCollection retval = new ServiceCollection();
             var files = Directory.GetFiles(dllpath, "*.dll");
@@ -31,33 +51,19 @@ namespace Factory
                 var assembly = Assembly.LoadFrom(file);
                 foreach (var type in assembly.GetTypes())
                 {
-                    var register = type.GetCustomAttribute<RegisterAttribute>();
-                    retval = _policyFunc[register.Policy](register.InterfaceType, type);
+                    var attributes = type.GetCustomAttributes<RegisterAttribute>();
+                    foreach (var register in attributes)
+                    {
+                        _serviceCollection = _policyFunc[register.Policy](register.InterfaceType, type);
+                    }
 
                 }
             }
             return retval;
         }
-        public void LoadLibraries(string path, IServiceCollection serviceCollection)
+        public void LoadLibraries(string path)
         {
-            _serviceCollection = InitServiceCollection(path, serviceCollection);
-        }
-        public Resolver(string path, IServiceCollection serviceCollection)
-        {
-
-        }
-        public Resolver(string path)
-        {
-
-            _policyFunc = InitPolicy();
-
-            _serviceCollection = new ServiceCollection();
-            _serviceCollection = InitServiceCollection(path, _serviceCollection);
-
-            _serviceProvider = _serviceCollection.BuildServiceProvider();
-            //Load Libraries and Interfaces
-            //Here we are going to add some 
-
+            _serviceCollection = InitServiceCollection(path);
         }
         public IEnumerable<IT> ResolveAll<IT>()
         {

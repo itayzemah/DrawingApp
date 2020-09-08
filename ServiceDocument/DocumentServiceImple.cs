@@ -9,6 +9,8 @@ using System.Linq;
 
 namespace ItayDrowingApp.Logic.Services
 {
+    [Register(Policy.Scoped, typeof(IDocumentService))]
+
     public class DocumentServiceImple : IDocumentService
     {
         private IDocumentDAL _documentDAL;

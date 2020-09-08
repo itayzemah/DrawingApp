@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ItayDrowingApp.Logic.Services
 {
+    [Register(Policy.Scoped, typeof(IUserService))]
     public class UserServiceImple : IUserService
     {
         private Dictionary<string, UserEntity> _users;

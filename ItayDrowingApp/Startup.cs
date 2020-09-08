@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ServiceDocument;
 using Oracle.ManagedDataAccess.Client;
 using System;
 using WebSockets;
@@ -32,7 +31,9 @@ namespace ItayDrowingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "dlls");
+            var contentRoot = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
+
+            var path = Path.Combine(contentRoot, "dlls");
             var resolver = new Resolver(path, services);
             services.AddSingleton<IResolver>(sp => resolver);
 
