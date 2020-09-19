@@ -26,7 +26,6 @@ namespace ItayDrowingApp.Logic.Services
         public DocumentBoundary CreateDocument(DocumentBoundary document, string userEmail)
         {
             document.docID = Guid.NewGuid().ToString();
-            //document.OwnerID = userEmail;//TODO change to ID
             _documentDAL.Create(_documentConverter.BoundaryToEntity(document));
             return document;
         }
@@ -42,10 +41,9 @@ namespace ItayDrowingApp.Logic.Services
             return rv;
         }
 
-        public DocumentBoundary RemoveDocument(DocumentBoundary document)
+        public DocumentBoundary RemoveDocument(DocumentID documentID)
         {
-            var entityToRemove = _documentConverter.BoundaryToEntity(document);
-            var removedEntity= _documentDAL.Remove(entityToRemove);
+            var removedEntity= _documentDAL.Remove(documentID.ID);
             var rv = _documentConverter.EntityToBoundary(removedEntity);
             return rv;
         }

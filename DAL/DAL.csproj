@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppContracts\AppContracts.csproj" />
     <ProjectReference Include="..\EntityAndBoundary\EntityAndBoundary.csproj" />
   </ItemGroup>
 

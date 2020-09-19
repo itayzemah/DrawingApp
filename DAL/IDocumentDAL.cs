@@ -10,7 +10,7 @@ namespace DAL
     {
         public DocumentEntity Create(DocumentEntity newDocument);
 
-        public DocumentEntity Remove(DocumentEntity documentToRemove);
+        public DocumentEntity Remove(string documentIDToRemove);
 
         public List<DocumentEntity> GetAllDocsOf(string userID);
         public DocumentEntity Upload(DocumentEntity entityToUpload);

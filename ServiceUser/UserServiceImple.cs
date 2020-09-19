@@ -1,4 +1,7 @@
-﻿using DAL;
+﻿using AppContracts;
+using AppContracts.DTO.Login;
+using AppContracts.DTO.Register;
+using DAL;
 using DAL.DALImlementations;
 using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Entity;
@@ -29,26 +32,37 @@ namespace ItayDrowingApp.Logic.Services
 
         }
 
-        public UserBoundary CreateUser(NewUserBoundaey user)
+        public Response CreateUser(RegisterRequest request)
         {
-            if (_users.ContainsKey(user.Email))
+            string id = Guid.NewGuid().ToString();
+
+            UserEntity userRetval = userDAL.Create(userConverter.BoundaryToEntity(id, request));
+            RegisterResponse retval = null;
+            if(userRetval != null)
             {
-                return null;
+                retval = new RegisterResponseOK(request) { NewUser = userConverter.EntityToBoundary(userRetval) };
             }
             else
             {
-                string id = Guid.NewGuid().ToString();
-                UserEntity retval = userDAL.Create(userConverter.BoundaryToEntity(id,user));
-                _users.Add(user.Email, userConverter.BoundaryToEntity(new UserBoundary() { ID = id, UserEmail = user.Email, UserName = user.UserName }));
+                retval = new RegisterResponseUserExist(request);
             }
-            return userConverter.EntityToBoundary( _users[user.Email]);
+            return retval;
         }
 
-        public UserBoundary Login(string userEmail)
+        public Response Login(LoginRequest request)
         {
-            UserEntity retval = userDAL.Login(userEmail);
+            UserEntity user = userDAL.Login(request.Login.UserEmail);
+            LoginResponse retval = null;
+            if (user != null)
+            {
+                retval = new LoginResponseOK(this.userConverter.EntityToBoundary(user));
+            }
+            else
+            {
+                retval = new LoginResponseInvalidUser(new UserBoundary() { UserEmail = request.Login.UserEmail + " - User Not Valid!" });
+            }
 
-            return userConverter.EntityToBoundary(retval);
+            return retval;
         }
 
         public UserBoundary Unsubscribe(string userEmail)

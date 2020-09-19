@@ -1,4 +1,4 @@
-﻿using EntityAndBoundary.Boundary;
+﻿using EntityAndBoundary.Entitiy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,10 +7,10 @@ namespace DAL
 {
     public interface IMarkerDAL
     {
-        public MarkerBoundary Create(MarkerBoundary marker);
+        public MarkerEntity Create(MarkerEntity marker);
 
-        public MarkerBoundary Remove(MarkerBoundary markerToRemove);
+        public MarkerEntity Remove(string markerToRemove);
 
-        public MarkerBoundary GetAllMarkersForDoc(string documentID);
+        public List<MarkerEntity> GetAllMarkersForDoc(string documentID);
     }
 }

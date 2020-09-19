@@ -25,9 +25,17 @@ namespace DAL.DALImlementations
                 new OracleParameter() { ParameterName = "userid", Value = newUser.UserID }
                 , new OracleParameter() { ParameterName = "userEmail", Value = newUser.userEmail }
                 , new OracleParameter() { ParameterName = "userName",Value = newUser.UserName }
+                , new OracleParameter() { ParameterName = "seccess",OracleDbType = OracleDbType.RefCursor, Direction=System.Data.ParameterDirection.Output}
                  };
-            dal.ExecuteSPQuery(dal.Connect(dal.ConnectionString), "ADD_USER", dbParameters);
-            return newUser;
+            var ds = dal.ExecuteSPQuery(dal.Connect(dal.ConnectionString), "ADD_USER", dbParameters);
+            if (ds.Tables[0].Rows[0]["seccess"] as string == "T")
+            {
+                return newUser;
+            }
+            return null;
+
+            //TODO change return value
+
         }
 
         public UserEntity Login(string userEmail)
@@ -36,6 +44,10 @@ namespace DAL.DALImlementations
                 new OracleParameter() { ParameterName = "userEmail", Value = userEmail },
                 new OracleParameter() { ParameterName = "USER_RV", OracleDbType = OracleDbType.RefCursor, Direction=System.Data.ParameterDirection.Output } };
             var rv = dal.ExecuteSPQuery(dal.Connect(dal.ConnectionString), "LOGIN", dbParameters);
+            if (rv.Tables[0].Rows.Count != 1)
+            {
+                return null;
+            }
             var userDataSet = rv.Tables[0].Rows[0];
             var id1 = userDataSet["USERID"];
             var name1 = userDataSet["USERNAME"];

@@ -31,8 +31,8 @@ namespace ItayDrowingApp.Controllers
 
 
 
-        // POST api/document/{userEmail}
-        [HttpPost("{userEmail}")]
+        // POST api/document/create/{userEmail}
+        [HttpPost("create/{userEmail}")]
         public DocumentBoundary CreateDocument([FromRoute] string userEmail,[FromBody] DocumentBoundary documentBoundary)
         {
             return documentService.CreateDocument(documentBoundary, userEmail);
@@ -46,11 +46,11 @@ namespace ItayDrowingApp.Controllers
             return documentService.UploadDocument(documentBoundary, userEmail);
         }
 
-        // PUT api/<DocumentController>/remove
-        [HttpPut("remove")]
-        public void Put([FromBody] DocumentBoundary documentBoundary)
+        // PUT api/document/remove
+        [HttpPost("remove")]
+        public DocumentBoundary Remove([FromBody] DocumentID documentID)
         {
-            documentService.RemoveDocument(documentBoundary);
+             return documentService.RemoveDocument(documentID);
         }
 
 

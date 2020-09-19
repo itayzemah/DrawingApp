@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace EntityAndBoundary.Boundary
 {
-    public class NewUserBoundaey
+    public class MarkerID
     {
-       
+        public string ID { get; set; }
     }
 }

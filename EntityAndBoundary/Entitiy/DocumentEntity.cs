@@ -22,7 +22,7 @@ namespace EntityAndBoundary.Entitiy
             URL = uRL;
             DocumentName = documentName;
             DocID = docID;
-            Markers = markers;
+            //Markers = markers;
         }
 
         public string OwnerID { get; set; }

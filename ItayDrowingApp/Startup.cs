@@ -54,7 +54,7 @@ namespace ItayDrowingApp
             //services.AddSingleton<IDocumentService, DocumentServiceImple>();
 
             services.AddSingleton<IMarkerDAL, MarkerDAL>();
-            //services.AddTransient<MarkerConverter>();
+            services.AddTransient<MarkerConverter>();
             //services.AddSingleton<IMarkerService, MarkerServiceImple>();
 
             services.AddSingleton<ISharingDAL, SharingDAL>();

@@ -10,7 +10,7 @@ namespace ItayDrowingApp.AppContracts
 
         public DocumentBoundary UploadDocument(DocumentBoundary document, string userEmail);
 
-        public DocumentBoundary RemoveDocument(DocumentBoundary document);
+        public DocumentBoundary RemoveDocument(DocumentID documentID);
 
         public List<DocumentBoundary> getAll(string userEmail);
 

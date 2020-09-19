@@ -22,11 +22,10 @@ namespace DAL.DALImlementations
         {
 
             DbParameter[] dbParameters = {
-                new OracleParameter() { ParameterName = "p_OWNER_ID", Value = newDocument.DocID}
+                new OracleParameter() { ParameterName = "p_DOC_ID", Value = newDocument.DocID}
                 , new OracleParameter() { ParameterName = "p_OWNER_ID", Value = newDocument.OwnerID }
-                , new OracleParameter() { ParameterName = "p_DOCUMENT_NAME",Value =newDocument.URL }
+                , new OracleParameter() { ParameterName = "p_URL",Value =newDocument.URL }
                 , new OracleParameter() { ParameterName = "p_DOCUMENT_NAME",Value = newDocument.DocumentName}
-                , new OracleParameter() { ParameterName = "p_IS_ACTIVE",Value = "1" }
                  };
             _dal.ExecuteSPQuery(_dal.Connect(_dal.ConnectionString), "ADD_DOCUMENT", dbParameters);
             return newDocument;
@@ -51,16 +50,18 @@ namespace DAL.DALImlementations
             return rv;
         }
 
-        public DocumentEntity Remove(DocumentEntity documentToRemove)
+        public DocumentEntity Remove(string documentIDToRemove)
         {
             DbParameter[] dbParameters = {
-                new OracleParameter() { ParameterName = "P_DOC_ID", Value = documentToRemove.DocID}
+                new OracleParameter() { ParameterName = "P_DOC_ID", Value = documentIDToRemove}
                 , new OracleParameter() {
                     ParameterName = "P_retval", OracleDbType = OracleDbType.RefCursor, Direction=System.Data.ParameterDirection.Output }
                  };
             var qResult = _dal.ExecuteSPQuery(_dal.Connect(_dal.ConnectionString), "REMOVE_DOCUMENT", dbParameters);
             var documentRow = qResult.Tables[0].Rows[0];
-            return new DocumentEntity(documentRow["OWNER"] as string, documentRow["IMAGEURL"] as string, documentRow["DOCUMENTNAME"] as string, documentRow["DOCID"] as string, null);
+            return new DocumentEntity(documentRow["OWNER"] as string, 
+                documentRow["IMAGEURL"] as string, documentRow["DOCUMENTNAME"] as string, 
+                documentRow["DOCID"] as string, null);
         }
 
         public DocumentEntity Upload(DocumentEntity entityToUpload)

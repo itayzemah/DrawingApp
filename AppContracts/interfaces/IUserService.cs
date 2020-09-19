@@ -1,4 +1,7 @@
-﻿using EntityAndBoundary.Boundary;
+﻿using AppContracts;
+using AppContracts.DTO.Login;
+using AppContracts.DTO.Register;
+using EntityAndBoundary.Boundary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +11,8 @@ namespace ItayDrowingApp.AppContracts
 {
     public interface IUserService
     {
-        public UserBoundary CreateUser(NewUserBoundaey user);
-        public UserBoundary Login(string userEmail);
+        public Response CreateUser(RegisterRequest request);
+        public Response Login(LoginRequest request);
         public UserBoundary Unsubscribe(string userEmail);
 
     }

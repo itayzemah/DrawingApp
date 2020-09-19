@@ -28,21 +28,20 @@ namespace DAL.Converters
                 URL = userEntity.URL,
                 DocumentName = userEntity.DocumentName,
                 IsActive = userEntity.isActive,
-                Markers = this.EntityToBoundary(userEntity.Markers),
                 OwnerID = userEntity.OwnerID
             };
         }
 
-        private MarkerBoundary[] EntityToBoundary(List<MarkerEntity> markers)
-        {
-            int size = 5;
-            MarkerBoundary[] rv = new MarkerBoundary[size];
-            for (int m = 0; m < size; m++)
-            {
-                MarkerBoundary boundary = new MarkerBoundary();//TODO create marker here
-                rv[m] = boundary;
-            }
-            return rv;
-        }
+        //private MarkerBoundary[] EntityToBoundary(List<MarkerEntity> markers)
+        //{
+        //    int size = 5;
+        //    MarkerBoundary[] rv = new MarkerBoundary[size];
+        //    for (int m = 0; m < size; m++)
+        //    {
+        //        MarkerBoundary boundary = new MarkerBoundary();//TODO create marker here
+        //        rv[m] = boundary;
+        //    }
+        //    return rv;
+        //}
     }
 }

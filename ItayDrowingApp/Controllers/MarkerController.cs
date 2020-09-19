@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EntityAndBoundary;
 using EntityAndBoundary.Boundary;
+using EntityAndBoundary.Marker_Response;
 using ItayDrowingApp.AppContracts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,10 +25,10 @@ namespace ItayDrowingApp.Controllers
 
 
         // GET: api/<MarkerController>
-        [HttpGet("{userEmail}/{docID}")]
-        public IEnumerable<MarkerBoundary> GetAllMarkers([FromRoute] string userEmail,string docID)
+        [HttpPost("for-document")]
+        public IEnumerable<MarkerBoundary> GetAllMarkers([FromBody] DocumentID documentID)
         {
-            return markerService.getAll(userEmail, docID);
+            return markerService.getAll(documentID.ID);
         }
 
 
@@ -38,11 +40,19 @@ namespace ItayDrowingApp.Controllers
             return markerService.CreateMarker(marker);
         }
 
-        // PUT api/<MarkerController>/5
-        [HttpPut("remove/{docID}")]
-        public void RemoveMarker([FromRoute] string docID)
+        // PUT api/<MarkerController>/remove
+        [HttpPost("remove")]
+        public Response<MarkerBoundary> RemoveMarker([FromBody] MarkerID markerID)
         {
-            markerService.RemoveMarker(docID);
+            Response<MarkerBoundary> response = new RemoveMarkerResponseOK();
+            response.ResponseData = markerService.RemoveMarker(markerID.ID);
+
+            if(response.ResponseData == null)
+            {
+                response = new RemoveMarkerResponseNoMarker() {  Message ="No Such Marker"};
+            }
+
+            return response;
         }
 
         // DELETE api/<MarkerController>/5

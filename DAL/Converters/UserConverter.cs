@@ -1,4 +1,5 @@
-﻿using EntityAndBoundary.Boundary;
+﻿using AppContracts.DTO.Register;
+using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Entity;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,9 @@ namespace DAL.DALImlementations
             return new UserBoundary(userEntity.UserID, userEntity.userEmail, userEntity.UserName);
         }
 
-        public UserEntity BoundaryToEntity(string id,NewUserBoundaey user)
+        public UserEntity BoundaryToEntity(string id,RegisterRequest request)
         {
-            return new UserEntity(id, user.Email, user.UserName);
+            return new UserEntity(id, request.register.Email, request.register.UserName);
         }
     }
 }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppContracts;
+using AppContracts.DTO.Login;
+using AppContracts.DTO.Register;
 using EntityAndBoundary.Boundary;
 using ItayDrowingApp.AppContracts;
 using Microsoft.AspNetCore.Mvc;
@@ -21,18 +24,18 @@ namespace ItayDrowingApp.Controllers
             _userService = userService;
         }
 
-        // GET api/<UserController>/create
+        // GET api/User/create
         [HttpPost("create")]
-        public UserBoundary CreateUser([FromBody] NewUserBoundaey userRegister)
+        public Response CreateUser([FromBody] RegisterRequest request)
         {
-            return _userService.CreateUser(userRegister);
+            return _userService.CreateUser(request);
         }
 
-        // GET: api/<UserController>
-        [HttpGet("{userEmail}")]
-        public UserBoundary Login([FromRoute] string userEmail)
+        // GET: api/User/login
+        [HttpPost("login")]
+        public Response Login([FromBody] LoginRequest request)
         {
-            return _userService.Login(userEmail);
+            return _userService.Login(request);
         }
 
 
