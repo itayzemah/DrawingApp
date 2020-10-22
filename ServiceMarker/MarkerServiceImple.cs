@@ -1,12 +1,16 @@
-﻿using DAL;
+﻿using AppContracts.DTO.Marker;
+using AppContracts.interfaces;
+using DAL;
 using DAL.Converters;
 using EntityAndBoundary;
 using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Entitiy;
 using ItayDrowingApp.AppContracts;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ItayDrowingApp.Logic.Services
@@ -15,11 +19,14 @@ namespace ItayDrowingApp.Logic.Services
     public class MarkerServiceImple : IMarkerService
     {
         private IMarkerDAL markerDAL;
+        private IWebSocketService webSocketService;
+        private IDocumentDAL documentDAL;
         private MarkerConverter converter;
 
-        public MarkerServiceImple(IMarkerDAL markerDAL, MarkerConverter converter)
+        public MarkerServiceImple(IMarkerDAL markerDAL, IWebSocketService webSocketService, MarkerConverter converter)
         {
             this.markerDAL = markerDAL;
+            this.webSocketService = webSocketService;
             this.converter = converter;
         }
 
@@ -27,9 +34,13 @@ namespace ItayDrowingApp.Logic.Services
         {
             marker.MarkerID = Guid.NewGuid().ToString();
             MarkerEntity entity = converter.FromBoundary(marker);
-            entity = markerDAL.Create(entity);
-
-
+            try
+            {
+                entity = markerDAL.Create(entity);
+                string message = JsonConvert.SerializeObject(entity);
+            }
+            catch
+            { }
             return converter.FromEntity(entity);
         }
 
@@ -54,5 +65,6 @@ namespace ItayDrowingApp.Logic.Services
             }
             return retval;
         }
+
     }
 }

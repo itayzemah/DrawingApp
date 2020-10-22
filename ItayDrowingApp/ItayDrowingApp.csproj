@@ -41,6 +41,7 @@
     <ProjectReference Include="..\ServiceMarker\ServiceMarker.csproj" />
     <ProjectReference Include="..\ServiceShare\ServiceShare.csproj" />
     <ProjectReference Include="..\ServiceUser\ServiceUser.csproj" />
+    <ProjectReference Include="..\ServiceWebSocket\ServiceWebSocket.csproj" />
     <ProjectReference Include="..\WebSockets\WebSockets.csproj" />
   </ItemGroup>
 

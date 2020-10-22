@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using WebSockets;
 
 namespace ItayDrowingApp.Controllers
 {
@@ -12,7 +11,7 @@ namespace ItayDrowingApp.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private DrawAppHandler DrawAppHanlder { get; set; }
+        //private DrawAppHandler DrawAppHanlder { get; set; }
 
 
         private static readonly string[] Summaries = new[]
@@ -22,16 +21,16 @@ namespace ItayDrowingApp.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, DrawAppHandler drawAppHanlder)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
-            DrawAppHanlder = drawAppHanlder;
+            //DrawAppHanlder = drawAppHanlder;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IEnumerable<WeatherForecast>> GetAsync()
         {
-            await DrawAppHanlder.SendMessageToAllAsync("hello from controller");
+            //await DrawAppHanlder.SendMessageToAllAsync("hello from controller");
 
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

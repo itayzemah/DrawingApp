@@ -1,4 +1,6 @@
-﻿using EntityAndBoundary.Boundary;
+﻿using AppContracts;
+using AppContracts.DTO.Share;
+using EntityAndBoundary.Boundary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,10 +10,11 @@ namespace ItayDrowingApp.AppContracts
 {
     public interface ISharingService
     {
-        public ShareBoundary CreateShare(List<UserBoundary> users);
+        public Response CreateShare(CreateShareRequest request);
 
-        public List<DocumentBoundary> getAll();
+        public Response getAllSharedDocuments(GetSharedDocumentsResponseOK request);
+        public Response GetSharedUsers(GetSharedUsersRequest request);
 
-        public ShareBoundary RemoveShare(ShareBoundary share);
+        public Response RemoveShare(RemoveShareRequest request);
     }
 }

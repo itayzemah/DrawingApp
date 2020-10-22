@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppContracts.interfaces;
 using EntityAndBoundary;
 using EntityAndBoundary.Boundary;
 using EntityAndBoundary.Marker_Response;
 using ItayDrowingApp.AppContracts;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,11 +19,15 @@ namespace ItayDrowingApp.Controllers
     public class MarkerController : ControllerBase
     {
         private IMarkerService markerService;
+        private IWebSocketService webSocketService;
 
-        public MarkerController(IMarkerService markerService)
+        public MarkerController(IMarkerService markerService, IWebSocketService webSocketService)
         {
             this.markerService = markerService;
+            this.webSocketService = webSocketService;
         }
+
+
 
 
         // GET: api/<MarkerController>
@@ -37,7 +43,11 @@ namespace ItayDrowingApp.Controllers
         [HttpPost("create")]
         public MarkerBoundary Post([FromBody] MarkerBoundary marker)
         {
-            return markerService.CreateMarker(marker);
+            var markerResult =  markerService.CreateMarker(marker);
+            string merkerSerialized = JsonConvert.SerializeObject(markerResult);
+
+            this.webSocketService.SendToAllLesteners(merkerSerialized,markerResult.docID);
+            return markerResult;
         }
 
         // PUT api/<MarkerController>/remove

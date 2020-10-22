@@ -7,11 +7,14 @@ namespace DAL.DALContracts
 {
     public interface IInfraDAL
     {
-        public MyDBConnection Connect(string stringConnection);
+        public IMyDBConnection Connect(string stringConnection);
 
-        DataSet ExecuteSPQuery(MyDBConnection connection, string spName,
-            params MyDBParamenter[] parameters);
+        public IMyDBParamenter CreateParameter(string paramName, object val);
 
-        DataSet ExecuteQuery(MyDBConnection connection, string query);
+        public IMyDBParamenter getOutParam();
+        DataSet ExecuteSPQuery(IMyDBConnection connection, string spName,
+            params IMyDBParamenter[] parameters);
+
+        DataSet ExecuteQuery(IMyDBConnection connection, string query);
     }
 }

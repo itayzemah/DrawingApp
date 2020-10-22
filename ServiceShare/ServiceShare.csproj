@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AppContracts\AppContracts.csproj" />
+    <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

@@ -10,7 +10,7 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DAL.DALImlementations
 {
-    public class OracleConnectionAdapter: MyDBConnection
+    public class OracleConnectionAdapter: IMyDBConnection
     {
         public OracleConnection Connection { get; set; }
         public string ConnectionString { get; set; }
@@ -19,6 +19,11 @@ namespace DAL.DALImlementations
         {
             ConnectionString = connectionString;
 
+        }
+
+        public void Connect(string strConn)
+        {
+            throw new NotImplementedException();
         }
     }
     public class OracleDataAccessLayer : IDataAccessLayer

@@ -13,9 +13,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Oracle.ManagedDataAccess.Client;
 using System;
-using WebSockets;
 using System.IO;
 using Factory;
+using System.Net.WebSockets;
+using AppContracts.interfaces;
+using System.Threading;
+using ServiceWebSocket;
 
 namespace ItayDrowingApp
 {
@@ -38,7 +41,7 @@ namespace ItayDrowingApp
             services.AddSingleton<IResolver>(sp => resolver);
 
 
-            services.AddWebSocketManager();
+            //services.AddWebSocketManager();
 
             services.AddControllersWithViews();
             string connectionStringForOracleDB = Configuration.GetConnectionString("OracleDB");
@@ -52,6 +55,8 @@ namespace ItayDrowingApp
             services.AddSingleton<IDocumentDAL, DocumentDAL>();
             services.AddTransient<DocumentConverter>();
             //services.AddSingleton<IDocumentService, DocumentServiceImple>();
+
+            services.AddSingleton<IWebSocketService, WebSocketServiceImpl>();
 
             services.AddSingleton<IMarkerDAL, MarkerDAL>();
             services.AddTransient<MarkerConverter>();
@@ -87,7 +92,32 @@ namespace ItayDrowingApp
                 ReceiveBufferSize = 4 * 1024
             };
 
-            //app.UseWebSockets(wsOptions);
+            app.UseWebSockets();
+            app.Use(async (context, next) =>
+            {
+                if (context.Request.Path == "/ws")
+                {
+                    if (context.WebSockets.IsWebSocketRequest)
+                    {
+                        WebSocket webSocket = await context.WebSockets.AcceptWebSocketAsync();
+                        var wsService = app.ApplicationServices.GetService<IWebSocketService>();
+                        var id = context.Request.Query["id"];
+                        var userID = context.Request.Query["userID"];
+                        wsService.Add(id, userID, webSocket);
+                        await webSocket.ReceiveAsync(new Memory<byte>(), CancellationToken.None);
+
+
+                    }
+                    else
+                    {
+                        context.Response.StatusCode = 400;
+                    }
+                }
+                else
+                {
+                    await next();
+                }
+            });
             //app.MapWebSocketManager("/marks", serviceProvider.GetService<DrawAppHandler>());
 
             app.UseHttpsRedirection();

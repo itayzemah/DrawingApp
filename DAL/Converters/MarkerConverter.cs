@@ -15,7 +15,7 @@ namespace DAL.Converters
                 MarkerID = entity.MarkerID,
                 docID = entity.docID,
                 CreatedBy = entity.CreatedBy,
-                LocationJson = entity.LocationJson,
+                locationJson = entity.LocationJson,
                 ForeColor = entity.ForeColor,
                 BackColor = entity.BackColor,
                 shape = entity.shape
@@ -29,7 +29,7 @@ namespace DAL.Converters
                 MarkerID = boundary.MarkerID,
                 docID = boundary.docID,
                 CreatedBy = boundary.CreatedBy,
-                LocationJson = boundary.LocationJson,
+                LocationJson = boundary.locationJson,
                 ForeColor = boundary.ForeColor,
                 BackColor = boundary.BackColor,
                 shape = boundary.shape

@@ -16,7 +16,6 @@ namespace ItayDrowingApp.Logic.Services
     [Register(Policy.Scoped, typeof(IUserService))]
     public class UserServiceImple : IUserService
     {
-        private Dictionary<string, UserEntity> _users;
         private UserConverter userConverter;
         private IUserDAL userDAL;
 
@@ -26,7 +25,6 @@ namespace ItayDrowingApp.Logic.Services
 
         public UserServiceImple(UserConverter userConverter, IUserDAL userDAL)
         {
-            _users = new Dictionary<string, UserEntity>();
             this.userConverter = userConverter;
             this.userDAL = userDAL;
 

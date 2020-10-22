@@ -1,14 +1,15 @@
 ﻿using EntityAndBoundary.Boundary;
-using System;
+using EntityAndBoundary.Entitiy;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DAL
 {
     public interface ISharingDAL
     {
-        public ShareBoundary Create(ShareBoundary share);
+        public ShareEntity Create(ShareEntity share);
 
-        public ShareBoundary Remove(ShareBoundary shareToRemove);
+        public ShareEntity Remove(ShareEntity shareToRemove);
+
+        public List<ShareEntity> GetShareByUser(string userID);
     }
 }

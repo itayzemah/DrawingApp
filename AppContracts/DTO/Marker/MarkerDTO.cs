@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace EntityAndBoundary.Boundary
+namespace AppContracts.DTO.Marker
 {
-    public class MarkerBoundary
+    public class MarkerDTO
     {
         public string MarkerID { get; set; }
 
@@ -13,7 +12,7 @@ namespace EntityAndBoundary.Boundary
 
         public string docID { get; set; }
 
-        public string locationJson { get; set; }
+        public string LocationJson { get; set; }
 
         public string ForeColor { get; set; }
 

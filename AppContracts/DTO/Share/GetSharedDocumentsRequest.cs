@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.DALContracts
+namespace AppContracts.DTO.Share
 {
-    public interface MyDBConnection
+    public class GetSharedDocumentsRequest
     {
+
     }
 }

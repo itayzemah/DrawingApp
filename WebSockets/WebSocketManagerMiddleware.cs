@@ -1,71 +1,71 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Threading;
-using System.Threading.Tasks;
+﻿//using Microsoft.AspNetCore.Http;
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Net.WebSockets;
+//using System.Threading;
+//using System.Threading.Tasks;
 
-namespace WebSockets
-{
-    public class WebSocketManagerMiddleware
-    {
-        private readonly RequestDelegate _next;
-        private Handler _webSocketHandler { get; set; }
+//namespace WebSockets
+//{
+//    public class WebSocketManagerMiddleware
+//    {
+//        private readonly RequestDelegate _next;
+//        private Handler _webSocketHandler { get; set; }
 
-        public WebSocketManagerMiddleware(RequestDelegate next,
-                                          Handler webSocketHandler)
-        {
-            _next = next;
-            _webSocketHandler = webSocketHandler;
-        }
+//        public WebSocketManagerMiddleware(RequestDelegate next,
+//                                          Handler webSocketHandler)
+//        {
+//            _next = next;
+//            _webSocketHandler = webSocketHandler;
+//        }
 
-        public async Task Invoke(HttpContext context)
-        {
-            if (!context.WebSockets.IsWebSocketRequest)
-                return;
+//        public async Task Invoke(HttpContext context)
+//        {
+//            if (!context.WebSockets.IsWebSocketRequest)
+//                return;
 
-            var socket = await context.WebSockets.AcceptWebSocketAsync();
+//            var socket = await context.WebSockets.AcceptWebSocketAsync();
 
-            await _webSocketHandler.OnConnected(socket);
+//            await _webSocketHandler.OnConnected(socket);
 
-            await Receive(socket, async (result, buffer) =>
-            {
-                if (result.MessageType == WebSocketMessageType.Text)
-                {
-                    await _webSocketHandler.ReceiveAsync(socket, result, buffer);
-                    return;
-                }
+//            await Receive(socket, async (result, buffer) =>
+//            {
+//                if (result.MessageType == WebSocketMessageType.Text)
+//                {
+//                    await _webSocketHandler.ReceiveAsync(socket, result, buffer);
+//                    return;
+//                }
 
-                else if (result.MessageType == WebSocketMessageType.Close)
-                {
-                    await _webSocketHandler.OnDisconnected(socket);
-                    return;
-                }
+//                else if (result.MessageType == WebSocketMessageType.Close)
+//                {
+//                    await _webSocketHandler.OnDisconnected(socket);
+//                    return;
+//                }
 
-            });
+//            });
 
-            //TODO - investigate the Kestrel exception thrown when this is the last middleware
-            //await _next.Invoke(context);
-        }
+//            //TODO - investigate the Kestrel exception thrown when this is the last middleware
+//            //await _next.Invoke(context);
+//        }
 
-        private async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handleMessage)
-        {
-            try
-            {
-                var buffer = new byte[1024 * 4];
+//        private async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handleMessage)
+//        {
+//            try
+//            {
+//                var buffer = new byte[1024 * 4];
 
-                while (socket.State == WebSocketState.Open)
-                {
-                    var result = await socket.ReceiveAsync(buffer: new ArraySegment<byte>(buffer),
-                                                           cancellationToken: CancellationToken.None);
-                    handleMessage(result, buffer);
-                }
-            }
-            catch (Exception ex)
-            {
+//                while (socket.State == WebSocketState.Open)
+//                {
+//                    var result = await socket.ReceiveAsync(buffer: new ArraySegment<byte>(buffer),
+//                                                           cancellationToken: CancellationToken.None);
+//                    handleMessage(result, buffer);
+//                }
+//            }
+//            catch (Exception ex)
+//            {
 
-            }
-        }
-    }
-}
+//            }
+//        }
+//    }
+//}
